@@ -91,11 +91,20 @@ The desired structure can be created with:
 The following command with start the DICOM Web server listening on different ports for different HTTP protocol versions:
 
 `httpx-server -v 0 -dir .\out -cert ..`
+
 ### Ports used by the server:
 `HTTP/1.1:  8080
 HTTPS/1.1: 8081
 HTTPS/2:   8082
 HTTP/3:    8083`
+
+Important parameters for the httpx-server:
+
+`-dir - directory to be used for retrieve (output) or store (input)`
+
+`-cert - directory with public and private certificate: cert-priv.perm, cert-public.pem`
+
+`-v - number for the log level verbosity, 1 - Summary data, 2 - HTTP logs, 3 - debug, 4 - info`
 
 ### <b>6. Run the client</b>
 Retrieve use case with the different protocol versions:
@@ -125,6 +134,8 @@ Important parameters for the httpx-client:
 `-operation - operation to be executed: retrieve | send (default "retrieve")`
 
 `-mode - mode to be used: sync | async (default "sync"). For async a threadpool with the number of CPUs is used. Sync is single threaded.`
+
+`-cert - directory with public and private certificate: cert-priv.perm, cert-public.pem`
 
 `-v - number for the log level verbosity, 2 - HTTP logs, 3 - debug, 4 - info`
 

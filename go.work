@@ -1,0 +1,8 @@
+go 1.19
+
+use (
+	./client
+	./folder
+	./httpxcommon
+	./server
+)
