@@ -3,7 +3,7 @@
 HTTP (HyperText Transfer Protocol) is the underlying protocol of the World Wide Web. HTTP has gone through many changes that have helped maintain its simplicity while shaping its flexibility.
 
 <p align="center">
-  <img src="httpevolution.png" />
+  <img src="./httpevolution.png" />
 </p>
 <center>Figure 1: Evolution of the HTTP protocol</center>
 <br>
@@ -11,7 +11,7 @@ HTTP (HyperText Transfer Protocol) is the underlying protocol of the World Wide 
 HTTP/3 is the third major version of the Hypertext Transfer Protocol used to exchange information on the World Wide Web, complementing the widely-deployed HTTP/1.1 and HTTP/2. Unlike previous versions which relied on the well-established TCP, HTTP/3 uses QUIC, a multiplexed transport protocol built on UDP.
 
 <p align="center">
-  <img src="http3.png" />
+  <img src="./http3.png" />
 </p>
 <center>Figure 2: HTTP/2 vs HTTP/3</center>
 <br>
