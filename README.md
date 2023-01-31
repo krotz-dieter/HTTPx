@@ -5,7 +5,9 @@ HTTP (HyperText Transfer Protocol) is the underlying protocol of the World Wide 
 <p align="center">
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/HTTPEvolution.png" />
 </p>
+
 <center>Figure 1: Evolution of the HTTP protocol</center>
+
 <br>
 
 HTTP/3 is the third major version of the Hypertext Transfer Protocol used to exchange information on the World Wide Web, complementing the widely-deployed HTTP/1.1 and HTTP/2. Unlike previous versions which relied on the well-established TCP, HTTP/3 uses QUIC, a multiplexed transport protocol built on UDP.
@@ -13,7 +15,9 @@ HTTP/3 is the third major version of the Hypertext Transfer Protocol used to exc
 <p align="center">
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/HTTP3.png" />
 </p>
+
 <center>Figure 2: HTTP/2 vs HTTP/3</center>
+
 <br>
 
 QUIC has advantages over TCP in terms of its latency, versatility, and applicationlayer simplicity at the cost of high implementation overhead. However, the difference
