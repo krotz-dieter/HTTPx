@@ -99,6 +99,7 @@ HTTP/3:    8083`
 
 ### <b>6. Run the client</b>
 Retrieve use case with the different protocol versions:
+
 `httpx-client -v 0 -http 3.0 -operation retrieve -dir .\in https://127.0.0.1:8083/studies/1.3.12.2.1107.5.99.3.30000009052811420737800000003`
 
 `httpx-client -v 0 -http 2.0 -operation retrieve -dir .\in https://127.0.0.1:8082/studies/1.3.12.2.1107.5.99.3.30000009052811420737800000003`
