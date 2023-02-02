@@ -6,7 +6,7 @@ HTTP (HyperText Transfer Protocol) is the underlying protocol of the World Wide 
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/HTTPEvolution.png" />
 </p>
 
-<center>Figure 1: Evolution of the HTTP protocol</center>
+<p align="center">Figure 1: Evolution of the HTTP protocol</p>
 
 <br>
 
@@ -16,7 +16,7 @@ HTTP/3 is the third major version of the Hypertext Transfer Protocol used to exc
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/HTTP3.png" />
 </p>
 
-<center>Figure 2: HTTP/2 vs HTTP/3</center>
+<p align="center">Figure 2: HTTP/2 vs HTTP/3</p>
 
 <br>
 
