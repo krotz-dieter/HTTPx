@@ -33,7 +33,7 @@ over TCP.
 
 Theory is great, but it’s more convincing if we can see some real-data and real performance improvements of HTTP/3 over HTTP/2 and HTTP/1.1 
 
-This prototype is build exactly with that purpose, it's using only file and network I/O through it's design in order to omit parts which could effect performance heavily (like databases, parsing libraries etc.). The main purpose is to find out the differences of the HTTP versions specially for DICOM Web use cases:
+This prototype is build exactly with that purpose, it's using only file and network I/O through it's design in order to omit parts which could effect performance heavily (like databases, parsing libraries etc.). The main purpose is to find out the differences of the HTTP versions specially for DICOMweb use cases:
 
 * <b>Retrieve</b> transaction:<br>
 Study level: */studies/{study}* <br>
@@ -72,10 +72,10 @@ Install please first golang with:
 `choco install golang`
 
 ### Build for Windows
-`cmd /C "set "CGO_ENABLED=0" && set "GOOS=windows" && set "GOARCH=amd64" && go build -v -x"`
+`cmd /C "set "CGO_ENABLED=0" && set "GOOS=windows" && set "GOARCH=amd64" && go build -v"`
 
 ### Build for Linux
-`cmd /C "set "CGO_ENABLED=0" && set "GOOS=linux" && set "GOARCH=amd64" && go build -v -x"`
+`cmd /C "set "CGO_ENABLED=0" && set "GOOS=linux" && set "GOARCH=amd64" && go build -v"`
 
 ### <b>4. Prepare directory</b> structure with DICOM files for server as well as for the client
 With the httpx-folder executable an arbitrary folder structure with DICOM files related to a study can be converted to the desired structure needed by the client and server prototype.
@@ -88,7 +88,7 @@ The desired structure can be created with:
 `httpx-folder -dirin FOLDER-WITH-STUDY-DATA -dirout .\out`
 
 ### <b>5. Run the server</b>
-The following command with start the DICOM Web server listening on different ports for different HTTP protocol versions:
+The following command with start the DICOMweb server listening on different ports for different HTTP protocol versions:
 
 `httpx-server -v 0 -dir .\out -cert ..`
 
@@ -133,7 +133,7 @@ Important parameters for the httpx-client:
 
 `-operation - operation to be executed: retrieve | send (default "retrieve")`
 
-`-mode - mode to be used: sync | async (default "sync"). For async a threadpool with the number of CPUs is used. Sync is single threaded.`
+`-mode - mode to be used: sync | async (default "sync"). For async a threadpool with the number of CPUs is used. sync is single threaded.`
 
 `-cert - directory with public and private certificate: cert-priv.perm, cert-public.pem`
 
