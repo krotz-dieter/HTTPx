@@ -1,3 +1,6 @@
 server/httpx-server.exe
 folder/httpx-folder.exe
 client/httpx-client.exe
+server/httpx-server
+folder/httpx-folder
+client/httpx-client
