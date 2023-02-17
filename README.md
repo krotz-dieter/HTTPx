@@ -71,6 +71,10 @@ Install please first golang with:
 
 `choco install golang`
 
+In case you have an older golang installation please upgrade to > 1.20
+
+`choco upgrade golang`
+
 ### Build for Windows
 `cmd /C "set "CGO_ENABLED=0" && set "GOOS=windows" && set "GOARCH=amd64" && go build -v"`
 

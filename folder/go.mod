@@ -1,7 +1,6 @@
 module httpx-folder
 
-
-require github.com/lucas-clemente/quic-go v0.29.0
+go 1.20
 
 require (
 	github.com/francoispqt/gojay v1.2.13 // indirect

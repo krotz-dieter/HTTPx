@@ -1,6 +1,6 @@
 module httpxcommon
 
-go 1.19
+go 1.20
 
 require (
 	github.com/lucas-clemente/quic-go v0.29.0
