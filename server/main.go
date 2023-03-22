@@ -7,7 +7,6 @@ import (
 	"httpxcommon/partscommon"
 	"io"
 	"net/http"
-	"os"
 	"path"
 	"path/filepath"
 	"runtime"
@@ -25,8 +24,6 @@ import (
 
 	"github.com/quic-go/quic-go"
 	"github.com/quic-go/quic-go/http3"
-	"github.com/quic-go/quic-go/logging"
-	"github.com/quic-go/quic-go/qlog"
 )
 
 type binds []string
@@ -131,11 +128,11 @@ func main() {
 	// flag.Var(&bs, "bind", "bind to")
 	www := flag.String("www", "", "www data")
 	tcp := flag.Bool("tcp", false, "also listen on TCP")
-	enableQlog := flag.Bool("qlog", false, "output a qlog (in the same directory)")
+	//enableQlog := flag.Bool("qlog", false, "output a qlog (in the same directory)")
 	dirIn := flag.String("dir", "", "directory to be used as main directory")
 	dirCert := flag.String("cert", certPath, "directory with public and private certificate: cert-priv.perm, cert-public.pem")
 	flag.Parse()
-	klog.V(partscommon.KlogDebug).Info("Parameters www:", *www, " tcp:", *tcp, " QLog:", *enableQlog)
+	klog.V(partscommon.KlogDebug).Info("Parameters www:", *www, " tcp:", *tcp)
 
 	// calculate cert path
 	partscommon.CheckDirectory(*dirCert)
@@ -144,18 +141,18 @@ func main() {
 	// setup handler
 	handler := setupHandler(*www, partscommon.CheckDirectory(*dirIn))
 	var quicConf *quic.Config = nil
-	if *enableQlog {
-		quicConf := &quic.Config{}
-		quicConf.Tracer = qlog.NewTracer(func(_ logging.Perspective, connID []byte) io.WriteCloser {
-			filename := fmt.Sprintf("server_%x.qlog", connID)
-			f, err := os.Create(filename)
-			if err != nil {
-				klog.Fatal(err)
-			}
-			klog.V(partscommon.KlogDebug).Info("Creating qlog file %s.\n", filename)
-			return NewBufferedWriteCloser(bufio.NewWriter(f), f)
-		})
-	}
+	// if *enableQlog {
+	// 	quicConf := &quic.Config{}
+	// 	quicConf.Tracer = qlog.NewTracer(func(_ logging.Perspective, connID []byte) io.WriteCloser {
+	// 		filename := fmt.Sprintf("server_%x.qlog", connID)
+	// 		f, err := os.Create(filename)
+	// 		if err != nil {
+	// 			klog.Fatal(err)
+	// 		}
+	// 		klog.V(partscommon.KlogDebug).Info("Creating qlog file %s.\n", filename)
+	// 		return NewBufferedWriteCloser(bufio.NewWriter(f), f)
+	// 	})
+	// }
 
 	// use waitgroup to wait for all threads to be finished
 	var wg sync.WaitGroup
@@ -190,7 +187,9 @@ func main() {
 		var httpServer = http.Server{
 			Addr: ":8082", Handler: handler,
 		}
-		var http2Server = http2.Server{}
+		var http2Server = http2.Server{
+			MaxConcurrentStreams: 250,
+			MaxReadFrameSize:     1024 * 1024 * 16}
 		_ = http2.ConfigureServer(&httpServer, &http2Server)
 		klog.V(partscommon.KlogDebug).Info(httpServer.ListenAndServeTLS(certFile, keyFile))
 	}()

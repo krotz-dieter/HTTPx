@@ -25,7 +25,9 @@ func (h *http2Handler) InitializeClient(pool *x509.CertPool, insecure *bool) *ht
 		RootCAs: pool,
 	}
 	client.Transport = &http2.Transport{
-		TLSClientConfig: tlsConfig,
+		TLSClientConfig:            tlsConfig,
+		MaxReadFrameSize:           1024 * 1024 * 16,
+		StrictMaxConcurrentStreams: true,
 	}
 	return client
 }
