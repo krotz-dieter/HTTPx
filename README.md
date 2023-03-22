@@ -150,7 +150,6 @@ Measurements where done on two systems with following hardware:
 - Memory: 64GB
 - Storage: SSD Samsung 980 PRO Read: 7 GByte/s, Write: 5 Gbyte/s
 - Network: optical 10 Gbit Intel Nic on both systems
-<br>
 
 OS used was Ubuntu Server 22.04
 
@@ -170,7 +169,7 @@ In many cases sending for example in one thread is up to ten times slower than u
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/SendTransferRates.png" />
 </p>
 
-<p align="center">Figure 2: HTTP/1.1 vs HTTP/2 vs HTTP/3</p>
+<p align="center">Figure 3: HTTP/1.1 vs HTTP/2 vs HTTP/3</p>
 
 Overall HTTP/1.1 performs the best at the moment, HTTP/3.0 brings the lowest network speed.
 
