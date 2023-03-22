@@ -170,9 +170,9 @@ In many cases sending for example in one thread is up to ten times slower than u
   <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/SendTransferRates.png" />
 </p>
 
-<p align="center">Figure 2: HTTP/2 vs HTTP/3</p>
+<p align="center">Figure 2: HTTP/1.1 vs HTTP/2 vs HTTP/3</p>
 
-Overall HTTP/1.1 performs the best, HTTP/3.0 brings the lowest network speed.
+Overall HTTP/1.1 performs the best at the moment, HTTP/3.0 brings the lowest network speed.
 
 - because of the <b>low performance for HTTP/2 and HTTP/3</b> the following issues where formulated:
 1. for HTTP/2 (using net/http): https://github.com/golang/go/issues/47840
