@@ -143,6 +143,46 @@ Important parameters for the httpx-client:
 
 `-v - number for the log level verbosity, 2 - HTTP logs, 3 - debug, 4 - info`
 
+## Results
+
+Measurements where done on two systems with following hardware:
+- CPU:  AMD Ryzen 9 5900X
+- Memory: 64GB
+- Storage: SSD Samsung 980 PRO Read: 7 GByte/s, Write: 5 Gbyte/s
+- Network: optical 10 Gbit Intel Nic on both systems
+<br>
+
+OS used was Ubuntu Server 22.04
+
+DICOM Data used: CT & MR DICOM single frames
+
+From all the measurements done, here the relevant learnings taken:
+
+- <b>Sync (single threaded) vs Async (go worker = number of CPU):</b>
+Reading the DICOM files and sending the POST requests in multiple go worker brings a performance gain of 5-10. Same situation also for retrieving the DICOM data sets.
+In many cases sending for example in one thread is up to ten times slower than using multiple threads. Because of this, all the other measurements where done only using the async mode (multiple threads).
+
+- <b>sending DICOM studies</b> behaves in the same way as <b>retrieving DICOM studies</b>, the numbers are very similar
+
+- the <b>results for sending entire studies</b> is shown in the next picture. Here the async mode was used and DICOM files with an entire study size of: 1 -> 35 MB, 2 -> 800 MB, 3 - 2800 MB, 4 - 5000 MB where used.
+
+<p align="center">
+  <img src="https://github.com/SyngoPredevelopment/HTTPx/blob/main/SendTransferRates.png" />
+</p>
+
+<p align="center">Figure 2: HTTP/2 vs HTTP/3</p>
+
+Overall HTTP/1.1 performs the best, HTTP/3.0 brings the lowest network speed.
+
+- because of the <b>low performance for HTTP/2 and HTTP/3</b> the following issues where formulated:
+1. for HTTP/2 (using net/http): https://github.com/golang/go/issues/47840
+2. for HTTP/3 (using quic-go): https://github.com/quic-go/quic-go/issues/3729
+
+For HTTP/3 Google decided a few months ago to make their HTTP/3 implementation open source, the code is now available here: https://github.com/google/quiche. Using this implementation for the prototype would also make sense in future, just because this implementation is used in Chrome as well as in Envoy, maybe it performs much better than quic-go.
+
+Also for HTTP/2 the issue is known in the golang community, hopefully there will be a solution for the lower performance in one of the next releases of golang.
+
+
 <br>
 # Disclaimer
 
