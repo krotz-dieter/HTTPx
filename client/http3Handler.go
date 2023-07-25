@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"context"
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
@@ -45,16 +46,17 @@ func (h *http3Handler) InitializeClient(enableQlog *bool, pool *x509.CertPool, i
 	// log file for quic protocol
 	var quicConf *quic.Config = nil
 	if *enableQlog {
+		klog.V(partscommon.KlogInfo).Info("Enabling qlog for http3")
 		quicConf := &quic.Config{}
-		quicConf.Tracer = qlog.NewTracer(func(_ logging.Perspective, connID []byte) io.WriteCloser {
+		quicConf.Tracer = func(ctx context.Context, p logging.Perspective, connID quic.ConnectionID) logging.ConnectionTracer {
 			filename := fmt.Sprintf("client_%x.qlog", connID)
 			f, err := os.Create(filename)
 			if err != nil {
 				log.Fatal(err)
 			}
-			klog.V(partscommon.KlogDebug).Infof("Creating qlog file %s.\n", filename)
-			return h.NewBufferedWriteCloser(bufio.NewWriter(f), f)
-		})
+			log.Printf("Creating qlog file %s.\n", filename)
+			return qlog.NewConnectionTracer(h.NewBufferedWriteCloser(bufio.NewWriter(f), f), p, connID)
+		}
 	}
 	roundTripper := &http3.RoundTripper{
 		TLSClientConfig: &tls.Config{
